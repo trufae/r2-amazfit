@@ -22,3 +22,5 @@ Memory Layout
 
 Firmware
 --------
+mifit.apk/assets/Mili_chaohu.fw
+
