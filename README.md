@@ -1,6 +1,8 @@
 Amazfit BIP r2versing
 =====================
 
+The main specs of the device are: 
+
 	CPU: Mediatek STM32L476JEY6 (this is ARM Cortex M4 with FPU)
 	Details: Core: Arm® 32-bit Cortex®-M4 CPU with FPU,
 		 Adaptive real-time accelerator (ART Accelerator™)
@@ -12,7 +14,7 @@ Amazfit BIP r2versing
 	Storage: 1MB Flash
 
 
-Peripherals/Devices:
+Its peripherals and devices:
 
 * PPG heart rate sensor
 * Triaxial acceleration sensor
@@ -21,12 +23,32 @@ Peripherals/Devices:
 * Bluetooth 4.0
 * Sony 28nm GPS + Glonass Dual Core positioning
 
+
+And the internal photos from the FCCID (2AC8UA1608):
+
+https://fccid.io/2AC8UA1608/Internal-Photos/Internal-photos-3492001
+
+At least for the device we are examining, there's other form factors, revisions and models: round and square shapes, some model's components are mostly populated on one side leaving the other side for test points. The model under this analysis has a high integration factor so there's barely any PCB real state left in the board. That makes JTAG probing more interesting, but we can get most of what we need from static analysis alone.
+
+Other hobbyists have performed teardowns of the device, mostly for repair purposes. The photos are a bit higher quality and some of the IC markings are more visible, facilitating the examination of possible interconnects:
+
+https://forum.xda-developers.com/smartwatch/amazfit/bip-teardown-pcb-close-ups-hardware-t3830395
+
+For instance, there's a Winbond external flash memory we should be aware of when examining write addresses in the firmware:
+
+https://www.winbond.com/resource-files/w25q64fw_revk%2007012016%20sfdp.pdf
+
+The flash size of this IC is quite oversized for the amount of bytes needed to run the firmware and assets, but in this way, the manufacturer has enough space for possibly bulkier future upgrades.
+
 Memory Layout
 -------------
 STM32L476xx devices feature up to 128 Kbyte of embedded SRAM. This SRAM is split into two blocks:
 
 * 96 Kbyte mapped at address 0x2000.0000 (SRAM1)
 * 32 Kbyte located at address 0x1000.0000 with hardware parity check (SRAM2).
+
+And then the flash memory is divided as such:
+
 * 2KB pages at 0x0800.0000 - 0x0808.ffff Flash main memory
 
 Information Block (bank1+bank2)
