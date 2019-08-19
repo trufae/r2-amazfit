@@ -3,7 +3,7 @@ Amazfit BIP r2versing
 
 The main specs of the device are: 
 
-	CPU: Mediatek STM32L476JEY6 (this is ARM Cortex M4 with FPU)
+	CPU: STM32L476JEY6 (this is ARM Cortex M4 with FPU)
 	Details: Core: Arm® 32-bit Cortex®-M4 CPU with FPU,
 		 Adaptive real-time accelerator (ART Accelerator™)
 		 Allowing 0-wait-state execution from Flash memory,
@@ -22,6 +22,14 @@ Its peripherals and devices:
 * Barometric pressure sensor
 * Bluetooth 4.0
 * Sony 28nm GPS + Glonass Dual Core positioning
+
+0000 is the boot memory, which might be Flash, ROM or SRAM
+0800 is Flash
+2000 is SRAM
+1000 on some chips in TCRAM, which is faster for data but cannot be used for DMA or code.
+4000 is ROM, I think.
+E000 is IO, I think.
+
 
 
 And the internal photos from the FCCID (2AC8UA1608):
